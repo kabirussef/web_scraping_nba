@@ -29,9 +29,9 @@ df = df_full[['Unnamed: 0', 'PLAYER', 'TEAM', 'PTS']]
 df.columns = ['pos', 'player', 'team', 'total']
 
 top10ranking = {}
+top10ranking['points'] = df.to_dict('records')
 
 
-
-print(df)
+print(top10ranking['points'])
 
 driver.quit()
