@@ -10,7 +10,7 @@ url = 'https://stats.nba.com/players/traditional/?PerMode=Totals&Season=2019-20&
 
 option = Options()
 option.headless = True
-driver = webdriver.Edge()
+driver = webdriver.Chrome()
 
 driver.get(url)
 time.sleep(10)
@@ -21,6 +21,17 @@ driver.find_element_by_xpath(
 element = driver.find_element_by_xpath("//div[@class='nba-stat-table']//table")
 html_content = element.get_attribute('outerHTML')
 
-print(html_content)
+soup = BeautifulSoup(html_content, 'html.parser')
+table = soup.find(name='table')
+
+df_full = pd.read_html( str(table))[0].head(10)
+df = df_full[['Unnamed: 0', 'PLAYER', 'TEAM', 'PTS']]
+df.columns = ['pos', 'player', 'team', 'total']
+
+top10ranking = {}
+
+
+
+print(df)
 
 driver.quit()
