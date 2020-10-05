@@ -10,7 +10,7 @@ url = 'https://stats.nba.com/players/traditional/?PerMode=Totals&Season=2019-20&
 
 option = Options()
 option.headless = True
-driver = webdriver.Firefox()
+driver = webdriver.Edge()
 
 driver.get(url)
 time.sleep(10)
@@ -18,5 +18,9 @@ time.sleep(10)
 driver.find_element_by_xpath(
     "//div[@class='nba-stat-table']//table//thead//tr//th[@data-field='PTS']").click()
 
+element = driver.find_element_by_xpath("//div[@class='nba-stat-table']//table")
+html_content = element.get_attribute('outerHTML')
+
+print(html_content)
 
 driver.quit()
